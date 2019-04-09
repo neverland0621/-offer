@@ -1,0 +1,62 @@
+#include<iostream>
+using namespace std;
+class Solution {
+public:
+	void replaceSpace(char *str, int length)
+	{
+		if (str == NULL || length <= 0)
+		{
+			return;
+		}
+ 		int count = 0,mylength=0;
+		for (int i = 0; i < length; i++)
+		{
+			if (str[i] != '\0')
+			{
+				mylength++;
+			}
+		}
+		for (int i = 0; i < mylength; i++)
+		{
+			if (str[i] == ' ')
+			{
+				count++;
+			}
+		}
+		int newLen = mylength + 2 *count;
+		char* newPtr;                                 //新建一个指向扩展后的字符串末位的指针
+		newPtr = str + newLen;
+		*newPtr = '\0';
+		newPtr--;
+		//newLen -= 1;
+
+		for (int i = mylength - 1; i >= 0 && newLen != i; --i)
+		{
+			if (str[i] == ' ')
+			{
+				*(newPtr--) = '0';
+				*(newPtr--) = '2';
+				*(newPtr--) = '%';
+				newLen -= 3;
+			}
+			else
+			{
+				*(newPtr--) = str[i];
+				newLen -= 1;
+			}
+		}
+		return;
+	}
+};
+int main()
+{
+	Solution a;
+	char as[20] = "hello world";
+	a.replaceSpace(as, 20);
+	cout << as<<endl ;
+	return 0；
+ }
+ ///////////////////////////////////////////////
+ 
+ tips:字符串的名字是一个指针变量，里面存的内容是其第一个字符的地址。如字符串a[10],则&a，a，*a得到的均相同。
+ 
