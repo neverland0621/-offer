@@ -1,0 +1,59 @@
+
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+struct ListNode {
+public:
+       int val;
+       struct ListNode *next;
+	   /*
+       ListNode(int x) :
+              val(x), next(NULL) {
+       }  */
+ };
+class Solution {
+public:
+	vector<int> printListFromTailToHead(struct ListNode* head)
+	{
+		stack<int> st;
+		ListNode *cur = head;
+		while (cur!= NULL)                                                    //压栈
+		{
+			//cout << cur->val << "in stack" << endl;
+			st.push(cur->val);
+			cur = cur->next;
+		}
+		int len = st.size();
+		//cout << "len=" << len << endl;
+		vector<int> res(len);
+		for (int i = 0; i < len && st.empty()!=true; i++)                    //从栈顶取值即可
+		{
+			//cout << st.top() << "in vector" << endl;
+			res[i] = st.top();
+			st.pop();
+		}
+		return res;
+	}
+};
+int main()
+{
+	ListNode list[4];
+	list[0].val = 0;
+	list[0].next = &list[1];
+	list[1].val = 1;
+	list[1].next = &list[2];
+	list[2].val = 2;
+	list[2].next =&list[3];
+	list[3].val= 3;
+	list[3].next = NULL;
+
+	Solution so;
+	vector<int> r = so.printListFromTailToHead(list);
+	for (int i = 0; i < r.size(); i++)
+	{
+		cout << r[i] << endl;
+	}
+	return 0;
+}
+//难度不大，细节东西别错
